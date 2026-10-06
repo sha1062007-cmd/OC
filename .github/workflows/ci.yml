@@ -27,5 +27,6 @@ jobs:
       - name: Run Pytest Suite
         env:
           MOCK_LLM: "true"
+          PYTHONPATH: "."
         run: |
-          pytest tests -v
+          python -m pytest tests -v
