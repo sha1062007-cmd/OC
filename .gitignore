@@ -1,0 +1,53 @@
+# Environment variables & API keys
+.env
+*.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# SQLite & Data persistence
+*.db
+*.sqlite
+*.sqlite3
+data/vector_store/
+data/chroma/
+data/faiss/
+data/cache/
+
+# Streamlit
+.streamlit/
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
