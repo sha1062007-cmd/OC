@@ -1,0 +1,53 @@
+[Page 114]
+CHAPTER 9: FORCE AND LAWS OF MOTION
+9.1 BALANCED AND UNBALANCED FORCES
+In everyday life we observe that some effort is required to put a stationary object into motion or to stop a moving object. We ordinarily experience this as a muscular effort and say that we must push or hit or pull on an object to change its state of motion. The concept of force is based on this push, hit or pull.
+When two opposite forces acting on an object are equal in magnitude, they are called balanced forces. Balanced forces do not change the state of rest or of motion of an object. If an unbalanced force acts on an object, it accelerates the object in the direction of the force.
+
+[Page 115]
+9.2 FIRST LAW OF MOTION
+Galileo deduced that objects move with a constant speed when no force acts on them. Newton further studied Galileo's ideas on force and motion and presented three fundamental laws that govern the motion of objects.
+Newton's First Law of Motion states:
+"An object remains in a state of rest or of uniform motion in a straight line unless compelled to change that state by an applied external unbalanced force."
+In other words, all objects resist a change in their state of motion. The tendency of undisturbed objects to stay at rest or to keep moving with the same velocity is called inertia. This is why the first law of motion is also known as the Law of Inertia.
+
+[Page 116]
+9.3 INERTIA AND MASS
+The inertia of an object depends on its mass. Heavy objects have more inertia than lighter objects. For example, it requires much greater force to move a heavy stone than a football of the same size. A heavier or more massive body offers larger inertia. Quantitatively, the inertia of an object is measured by its mass.
+
+[Page 117]
+9.4 SECOND LAW OF MOTION
+The second law of motion states that the rate of change of momentum of an object is proportional to the applied unbalanced force in the direction of force.
+Momentum (p) is defined as the product of mass (m) and velocity (v):
+p = m * v
+Momentum has both direction and magnitude. Its SI unit is kilogram-metre per second (kg m/s).
+Mathematical formulation:
+Force F is proportional to (change in momentum / time) = m * (v - u) / t = m * a.
+Hence, F = k * m * a. In SI units, k = 1, giving:
+F = m * a
+where F is force in Newtons (N), m is mass in kg, and a is acceleration in m/s^2. 1 Newton is defined as the force which causes an acceleration of 1 m/s^2 in an object of mass 1 kg.
+
+[Page 118]
+9.5 THIRD LAW OF MOTION
+The first two laws of motion tell us how an applied force changes the motion and provide us with a method of determining the force.
+Newton's Third Law of Motion states:
+"To every action, there is an equal and opposite reaction."
+Whenever one body exerts a force on another body, the second body simultaneously exerts an equal and opposite force on the first body. These two opposing forces are known as action and reaction forces.
+Crucial Properties of Action and Reaction:
+1. Action and reaction forces are always equal in magnitude and opposite in direction.
+2. They act simultaneously.
+3. Most importantly, action and reaction forces act on TWO DIFFERENT BODIES. Because they act on different bodies, they never cancel each other out.
+Real-world Examples:
+- A Swimmer: When a swimmer pushes the water backwards with hands and feet (action), the water pushes the swimmer forward with an equal force (reaction).
+- Walking on ground: To walk forward, your foot pushes the ground backwards and downwards (action). The ground pushes your foot forward with an equal reaction force.
+- Gun Recoil: When a bullet is fired from a gun, the gun exerts an accelerating force on the bullet (action). The bullet exerts an equal and opposite force on the gun (reaction). Because the gun has a much greater mass than the bullet, the acceleration of the gun (recoil) is much smaller than the acceleration of the bullet (by a = F/m).
+- Rocket Propulsion: Burning gases rush out of the rocket nozzle downward at high speed (action). The escaping gases push the rocket upward with an equal reaction force (reaction).
+
+[Page 119]
+9.6 CONSERVATION OF MOMENTUM
+According to the law of conservation of momentum:
+"In an isolated system where no external unbalanced force acts, the total momentum of interacting bodies remains constant and conserved."
+For two colliding bodies of masses m1 and m2 with initial velocities u1 and u2 and final velocities v1 and v2:
+Total momentum before collision = Total momentum after collision
+m1*u1 + m2*u2 = m1*v1 + m2*v2
+This law is a direct consequence of Newton's third law of motion.

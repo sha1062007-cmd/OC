@@ -1,0 +1,37 @@
+[Page 95]
+CHAPTER 6: LIFE PROCESSES
+6.2 AUTOTROPHIC NUTRITION AND PHOTOSYNTHESIS
+Carbon and energy requirements of the autotrophic organism are fulfilled by photosynthesis.
+Photosynthesis is the fundamental biological process by which green plants, algae, and certain bacteria synthesize complex organic food (carbohydrates such as glucose) from simple inorganic substances like carbon dioxide (CO2) and water (H2O) in the presence of sunlight and chlorophyll pigment.
+
+[Page 96]
+6.2.1 THE CHEMICAL EQUATION OF PHOTOSYNTHESIS
+The biochemical reaction can be represented by the balanced chemical equation:
+6 CO2 + 12 H2O ---[Sunlight & Chlorophyll]---> C6H12O6 + 6 O2 + 6 H2O
+(Carbon dioxide + Water yields Glucose + Oxygen + Water)
+The carbohydrates which are not used immediately are stored in the form of starch in plants, serving as internal energy reserves.
+
+[Page 97]
+6.2.2 KEY EVENTS DURING PHOTOSYNTHESIS
+The following three distinct events take place during photosynthesis:
+(i) Absorption of light energy by chlorophyll molecules present inside the chloroplasts.
+(ii) Conversion of light energy into chemical energy (ATP and NADPH), accompanied by the splitting of water molecules (photolysis) into hydrogen ions, electrons, and oxygen gas (O2).
+(iii) Reduction of carbon dioxide into carbohydrates (glucose).
+These steps need not take place one immediately after the other. For example, desert plants take up carbon dioxide at night and prepare an intermediate acid which is acted upon by the energy absorbed by the chlorophyll during the day.
+
+[Page 98]
+6.2.3 SITE OF PHOTOSYNTHESIS: CHLOROPLASTS
+Cross-section of a green leaf under a microscope reveals green cell organelles known as chloroplasts. Chloroplasts contain the green pigment chlorophyll, which is essential for capturing solar photon energy. Chloroplasts have double membranes with internal stacks of thylakoids called grana embedded in the fluid stroma.
+Light-dependent reactions occur in thylakoid membranes, while light-independent dark reactions (Calvin cycle) take place in the stroma.
+
+[Page 99]
+6.2.4 STOMATA AND GASEOUS EXCHANGE
+Stomata are microscopic pores found primarily on the epidermis of leaves.
+Functions of Stomata:
+1. Massive amounts of gaseous exchange (CO2 intake and O2 release) take place in the leaves through these stomata for photosynthesis.
+2. Large amounts of water vapor are also lost through stomatal transpiration.
+The opening and closing of the stomatal pore is a vital function controlled by specialized cells called Guard Cells.
+Mechanism:
+- The guard cells swell when water flows into them, causing the stomatal pore to curve and open.
+- When guard cells lose water, they shrink and become flaccid, causing the pore to close.
+The plant closes these pores when it does not need carbon dioxide for photosynthesis, thereby conserving vital water.
