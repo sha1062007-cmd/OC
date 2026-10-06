@@ -141,7 +141,41 @@ class MockChatModel:
 - **Day 7 (Pre-Exam Polish):** Formula review, diagram practice (Chloroplast & Force vectors), light reading."""
             return type("MockResponse", (), {"content": content})()
 
-        # Default Explainer response with textbook citations
+        # Explainer responses with syllabus textbook citations
+        if "stomata" in prompt_lower or "guard cell" in prompt_lower:
+            content = """### Understanding Stomata and Gaseous Exchange
+Stomata are microscopic pores found primarily on the epidermis of leaves [Source: ncert_class10_ch6_life_processes_photosynthesis.txt, p.99].
+- **Gaseous Exchange:** Allow intake of carbon dioxide (CO2) and release of oxygen (O2) for photosynthesis.
+- **Guard Cells:** The opening and closing mechanism is controlled by guard cells; they swell with water to open and shrink when flaccid to close [Source: ncert_class10_ch6_life_processes_photosynthesis.txt, p.99]."""
+            return type("MockResponse", (), {"content": content})()
+
+        if "momentum" in prompt_lower:
+            content = """### Understanding Conservation of Momentum
+According to the syllabus [Source: ncert_class9_ch9_force_and_laws_of_motion.txt, p.119]:
+The total momentum of two colliding bodies remains constant and conserved in an isolated system where no external unbalanced force acts ($m_1 u_1 + m_2 u_2 = m_1 v_1 + m_2 v_2$).
+- **Recoil of Gun:** When a bullet is fired forward with momentum, the gun experiences an equal backward momentum [Source: ncert_class9_ch9_force_and_laws_of_motion.txt, p.118]."""
+            return type("MockResponse", (), {"content": content})()
+
+        if "first law" in prompt_lower or "inertia" in prompt_lower:
+            content = """### Understanding Newton's First Law of Motion (Law of Inertia)
+According to the syllabus [Source: ncert_class9_ch9_force_and_laws_of_motion.txt, p.115-116]:
+An object remains in a state of rest or of uniform motion in a straight line unless compelled to change that state by an applied external unbalanced force.
+- **Inertia:** The natural tendency of objects to resist a change in their state of rest or motion [Source: ncert_class9_ch9_force_and_laws_of_motion.txt, p.115]."""
+            return type("MockResponse", (), {"content": content})()
+
+        if "second law" in prompt_lower:
+            content = """### Understanding Newton's Second Law of Motion
+According to the syllabus [Source: ncert_class9_ch9_force_and_laws_of_motion.txt, p.117]:
+The rate of change of momentum of an object is proportional to the applied unbalanced force in the direction of force ($F = ma$)."""
+            return type("MockResponse", (), {"content": content})()
+
+        if "balanced" in prompt_lower or "unbalanced" in prompt_lower:
+            content = """### Understanding Balanced and Unbalanced Forces
+According to the syllabus [Source: ncert_class9_ch9_force_and_laws_of_motion.txt, p.114]:
+- **Balanced Forces:** When equal forces act on an object in opposite directions, the net force is zero and the object's state of motion does not change.
+- **Unbalanced Forces:** When net force is non-zero, an acceleration is produced in the direction of the greater force [Source: ncert_class9_ch9_force_and_laws_of_motion.txt, p.114]."""
+            return type("MockResponse", (), {"content": content})()
+
         if "newton" in prompt_lower or "force" in prompt_lower:
             content = """### Understanding Newton's Third Law of Motion
 

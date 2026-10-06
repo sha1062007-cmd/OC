@@ -23,7 +23,9 @@ def explainer_node(state: TutorState) -> TutorState:
     student_id = state.get("student_id", "demo_student")
 
     # 1. Retrieve syllabus context via RAG
-    chunks = retrieve(topic, k=4)
+    user_query = state.get("user_query", "")
+    retrieval_query = f"{topic} {user_query}".strip() or topic
+    chunks = retrieve(retrieval_query, k=4)
     state_chunks = chunks
 
     # 2. Guardrail: Verify syllabus grounding

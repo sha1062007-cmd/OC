@@ -31,11 +31,12 @@ def planner_node(state: TutorState) -> TutorState:
     Analyzes user message and student weak topics to plan subsequent routing.
     """
     messages = state.get("messages", [])
-    user_message = ""
-    for m in reversed(messages):
-        if m.get("role") == "user":
-            user_message = m.get("content", "")
-            break
+    user_message = state.get("user_query", "").strip()
+    if not user_message:
+        for m in reversed(messages):
+            if m.get("role") == "user":
+                user_message = m.get("content", "")
+                break
 
     # Guardrail: Check content moderation
     is_safe, reason = moderate_content(user_message)
@@ -85,27 +86,65 @@ def planner_node(state: TutorState) -> TutorState:
     elif "tomorrow" in q_lower:
         exam_days = 1
 
-    # Extract topic
-    extracted_topic = state.get("topic", "")
-    if "newton" in q_lower or "force" in q_lower or "third law" in q_lower:
-        extracted_topic = "Newton's Third Law"
-    elif "photo" in q_lower or "chloroplast" in q_lower or "plant" in q_lower:
+    # Dynamic and comprehensive topic extraction from query
+    extracted_topic = ""
+    # 1. Physics: Force and Laws of Motion
+    if any(k in q_lower for k in ["third law", "action and reaction", "action-reaction"]):
+        extracted_topic = "Newton's Third Law of Motion"
+    elif any(k in q_lower for k in ["second law", "f = ma", "rate of change of momentum"]):
+        extracted_topic = "Newton's Second Law of Motion"
+    elif any(k in q_lower for k in ["first law", "inertia", "law of inertia"]):
+        extracted_topic = "Newton's First Law of Motion (Inertia)"
+    elif any(k in q_lower for k in ["momentum", "collision", "recoil"]):
+        extracted_topic = "Conservation of Momentum"
+    elif any(k in q_lower for k in ["balanced", "unbalanced"]):
+        extracted_topic = "Balanced and Unbalanced Forces"
+    elif "friction" in q_lower:
+        extracted_topic = "Friction and Motion"
+    elif "newton" in q_lower or "force" in q_lower:
+        extracted_topic = "Force and Laws of Motion"
+
+    # 2. Biology: Life Processes & Photosynthesis
+    elif any(k in q_lower for k in ["stomata", "stoma", "guard cell", "gaseous exchange"]):
+        extracted_topic = "Stomata and Gaseous Exchange"
+    elif any(k in q_lower for k in ["chloroplast", "chlorophyll"]):
+        extracted_topic = "Chloroplasts and Chlorophyll"
+    elif any(k in q_lower for k in ["light reaction", "photolysis", "water split"]):
+        extracted_topic = "Photosynthesis - Light Reactions"
+    elif any(k in q_lower for k in ["autotroph", "heterotroph"]):
+        extracted_topic = "Autotrophic Nutrition"
+    elif any(k in q_lower for k in ["photo", "photosynthesis"]):
         extracted_topic = "Photosynthesis"
-    elif not extracted_topic:
+
+    # 3. Dynamic regex extraction for arbitrary syllabus topics
+    if not extracted_topic:
+        topic_match = re.search(
+            r"(?:explain|quiz me on|teach me about|what is|what are|tell me about|how does|notes on)\s+(?:the\s+)?(.+?)(?:\s+with\s+|\s+in\s+detail|\s+please|\?|$)",
+            sanitized_query,
+            re.IGNORECASE
+        )
+        if topic_match:
+            candidate = topic_match.group(1).strip()
+            candidate = re.sub(r"[^\w\s-]", "", candidate).strip()
+            if len(candidate) > 2:
+                extracted_topic = candidate.title()
+
+    if not extracted_topic:
         if weak_topics and intent in ("quiz", "plan"):
             extracted_topic = weak_topics[0]["topic"]
         else:
-            extracted_topic = "General Science"
+            extracted_topic = state.get("topic") or "General Science"
 
     # LLM classification confirmation
     llm = get_chat_model()
     try:
         if hasattr(llm, "with_structured_output"):
             structured_llm = llm.with_structured_output(PlannerOutput)
-            prompt = f"""Classify the user intent into one of: 'explain', 'quiz', 'review', 'plan'.
+            prompt = f"""You are a syllabus curriculum planner.
+Classify the user intent into one of: 'explain', 'quiz', 'review', 'plan', and identify the scientific topic.
 User Query: "{sanitized_query}"
 Student's Weak Topics History: {weak_summary}
-Topic: {extracted_topic}
+Candidate Topic: {extracted_topic}
 Days left until exam: {exam_days}"""
             result = structured_llm.invoke(prompt)
             return {
