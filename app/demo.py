@@ -60,25 +60,33 @@ def run_automated_demo():
     print("  User asks: 'Quiz me on photosynthesis.'")
     print("#" * 76)
 
-    state2 = create_initial_state(
+    # Use a fresh isolated state for the manual node-by-node demonstration.
+    # (app.invoke would internally exhaust the mastery loop before we can intercept it.)
+    from app.nodes.planner import planner_node
+    state2_raw = create_initial_state(
         student_id=student_id,
-        user_message="Quiz me on photosynthesis."
+        user_message="Quiz me on photosynthesis.",
+        mastery_threshold=0.70,
+        max_iterations=3
     )
-    res2 = app.invoke(state2, config=config)
-    quiz = res2.get("quiz")
+    # Planner classifies intent
+    state2_planned = planner_node(state2_raw)
+    # Quiz Master generates questions
+    res2 = quiz_master_node(state2_planned)
+
     print("\n[Quiz Master Presents Questions (Answers Stripped)]:\n")
     print(res2["messages"][-1]["content"])
 
-    # Simulate student submitting answers: Intentionally provide 1 correct, 2 incorrect to test adaptive loop
+    # Simulate student submitting answers: 1 correct, 2 incorrect to trigger adaptive loop
     print("\n>>> Simulating Student Answers: Q1='A', Q2='D' (Incorrect), Q3='C' (Incorrect)...")
     res2["student_answers"] = {"0": "A", "1": "D", "2": "C"}
 
-    # Evaluator grades the quiz
+    # Evaluator grades the quiz (iteration_count starts at 0, becomes 1 after eval)
     res2_eval = evaluator_node(res2)
     print("\n[Evaluator Feedback & Score]:\n")
     print(res2_eval["messages"][-1]["content"])
 
-    # Check conditional edge
+    # Check conditional edge — iteration_count=1, score=0.33 → should route to explainer
     route_decision = route_evaluator(res2_eval)
     score_pct = int(res2_eval["score"] * 100)
     print(f"\n[Mastery Check Engine]: Score is {score_pct}%. Threshold is 70%.")
