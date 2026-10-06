@@ -177,7 +177,7 @@ def get_chat_model(temperature: float = 0.2):
             from langchain_google_genai import ChatGoogleGenerativeAI
             api_key = os.getenv("GOOGLE_API_KEY")
             return ChatGoogleGenerativeAI(
-                model="gemini-1.5-flash",
+                model="gemini-3.8-flash",
                 temperature=temperature,
                 google_api_key=api_key
             )
