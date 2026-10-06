@@ -164,6 +164,46 @@ Photosynthesis is the autotrophic process where green plants synthesize glucose 
         return type("MockResponse", (), {"content": content})()
 
 
+class ResilientChatModelWrapper:
+    """
+    Wraps an underlying LangChain chat model with zero-hang timeout,
+    automatic text normalization (handling both strings and multi-modal lists),
+    and instantaneous syllabus fallback if API quota or network error occurs.
+    """
+    def __init__(self, base_model, fallback_model=None):
+        self.base_model = base_model
+        self.fallback_model = fallback_model or MockChatModel()
+
+    def invoke(self, *args, **kwargs):
+        try:
+            res = self.base_model.invoke(*args, **kwargs)
+            # Ensure content is always clean string (Google can return a list of parts)
+            if hasattr(res, "content"):
+                if isinstance(res.content, list):
+                    text_parts = []
+                    for item in res.content:
+                        if isinstance(item, str):
+                            text_parts.append(item)
+                        elif isinstance(item, dict) and "text" in item:
+                            text_parts.append(item["text"])
+                        elif hasattr(item, "text"):
+                            text_parts.append(getattr(item, "text"))
+                    res.content = "".join(text_parts) if text_parts else str(res.content)
+            return res
+        except Exception as e:
+            print(f"[LLM Resilient Fallback] Live API returned ({e}). Instantly using syllabus fallback.")
+            return self.fallback_model.invoke(*args, **kwargs)
+
+    def with_structured_output(self, *args, **kwargs):
+        if hasattr(self.base_model, "with_structured_output"):
+            try:
+                structured = self.base_model.with_structured_output(*args, **kwargs)
+                return ResilientChatModelWrapper(structured, fallback_model=self.fallback_model)
+            except Exception:
+                pass
+        return self.fallback_model
+
+
 def get_chat_model(temperature: float = 0.2):
     """Factory creating configured ChatModel instance or MockChatModel."""
     is_mock = os.getenv("MOCK_LLM", "false").lower() in ("true", "1", "yes")
@@ -176,27 +216,37 @@ def get_chat_model(temperature: float = 0.2):
         if provider == "google":
             from langchain_google_genai import ChatGoogleGenerativeAI
             api_key = os.getenv("GOOGLE_API_KEY")
-            return ChatGoogleGenerativeAI(
-                model="gemini-3.8-flash",
+            model_name = os.getenv("GEMINI_MODEL", "gemini-3.5-flash-lite")
+            raw_model = ChatGoogleGenerativeAI(
+                model=model_name,
                 temperature=temperature,
-                google_api_key=api_key
+                google_api_key=api_key,
+                max_retries=0,
+                timeout=12,
             )
+            return ResilientChatModelWrapper(raw_model)
         elif provider == "openai":
             from langchain_openai import ChatOpenAI
             api_key = os.getenv("OPENAI_API_KEY")
-            return ChatOpenAI(
+            raw_model = ChatOpenAI(
                 model="gpt-4o-mini",
                 temperature=temperature,
-                api_key=api_key
+                api_key=api_key,
+                max_retries=1,
+                timeout=12,
             )
+            return ResilientChatModelWrapper(raw_model)
         elif provider == "anthropic":
             from langchain_anthropic import ChatAnthropic
             api_key = os.getenv("ANTHROPIC_API_KEY")
-            return ChatAnthropic(
+            raw_model = ChatAnthropic(
                 model="claude-3-haiku-20240307",
                 temperature=temperature,
-                api_key=api_key
+                api_key=api_key,
+                max_retries=1,
+                timeout=12,
             )
+            return ResilientChatModelWrapper(raw_model)
     except Exception as e:
         print(f"[LLM Factory] Error initializing {provider} model ({e}). Using mock model fallback.")
         return MockChatModel()
